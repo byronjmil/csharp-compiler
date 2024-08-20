@@ -1,20 +1,42 @@
 ﻿using System;
 
-namespace CSharpCompiler;
-
-public class Program
+class Program
 {
-    public static void Main()
+    static void Main()
     {
-        DateTime start = new(2024, 7, 12);
-        DateTime end = new(2025, 7, 12);
-        TimeSpan diff = end - start;
-        int days = diff.Days;
-        double goal = 0.05;
-        double dailyInput = goal / days;
-        double payStubInput = Math.Round(dailyInput * 14, 8);
-        Console.WriteLine($"Daily = {dailyInput} BTC");
-        Console.WriteLine($"PayStub = {payStubInput} BTC");
-        Console.WriteLine($"PayStub = {Math.Round(payStubInput * 1000, 5)} mBTC");
+        double legacy = 68621.93;
+        double liquid = 0;
+        double assets = legacy + liquid;
+        // Create a DateTime variable
+        DateTime start = new(2024, 6, 28);
+
+        // Add 14 days to the original DateTime
+        DateTime end = start.AddDays(14 * 26);
+
+        Console.WriteLine($"End Date: {end}");
+
+        DateTime today = DateTime.Today;
+
+        TimeSpan difference = end - today;
+
+        int stmts = difference.Days / 14;
+
+        Console.WriteLine($"Statments left: {stmts}");
+
+        double interestToInv = 1 + (.07 * stmts / 26);
+
+        Console.WriteLine($"Interest left on assets: {Math.Round(interestToInv, 8)}");
+
+        double inv = Math.Round(assets * interestToInv, 2);
+
+        Console.WriteLine($"Assets: ${assets.ToString("N2")}");
+
+        double remainder = Math.Round((
+            Math.Pow(10, 5) - (inv + (613.69 * stmts))
+        ), 2);
+
+        double sideInvestment = remainder / stmts;
+
+        Console.WriteLine($"Remaining Inv per Statement ${sideInvestment.ToString("N2")}");
     }
 }
